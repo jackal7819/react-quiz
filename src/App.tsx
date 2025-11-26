@@ -1,13 +1,16 @@
 import { useEffect, useReducer } from 'react';
 
+import Error from './components/Error';
 import Header from './components/Header';
+import Loader from './components/Loader';
 import Main from './components/Main';
+import StartScreen from './components/StartScreen';
 
 interface Question {
-  question: string;
-  options: string[];
-  correctOption: number;
-  points: number;
+	question: string;
+	options: string[];
+	correctOption: number;
+	points: number;
 }
 
 interface State {
@@ -43,12 +46,14 @@ const reducer = (state: State, action: Action): State => {
 			return { ...state, status: 'error' };
 
 		default:
-			throw new Error('Unknown action');
+			return state;
 	}
 };
 
 export default function App() {
 	const [state, dispatch] = useReducer(reducer, initialState);
+
+	const numberOfQuestions = state.questions.length;
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -66,16 +71,13 @@ export default function App() {
 		fetchData();
 	}, []);
 
-	useEffect(() => {
-		console.log('Questions updated:', state.questions);
-	}, [state.questions]);
-
 	return (
 		<div className='app'>
 			<Header />
 			<Main>
-				<p>1/15</p>
-				<p>Question?</p>
+				{state.status === 'loading' && <Loader />}
+				{state.status === 'error' && <Error />}
+				{state.status === 'ready' && <StartScreen numberOfQuestions={numberOfQuestions} />}
 			</Main>
 		</div>
 	);
