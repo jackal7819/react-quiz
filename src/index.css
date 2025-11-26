@@ -36,11 +36,11 @@ body {
 }
 
 .main {
-	width: 54rem;
+	width: 60rem;
 }
 
 .app-header {
-	width: 66rem;
+	width: 70rem;
 	margin-bottom: 4rem;
 	display: flex;
 	align-items: center;
