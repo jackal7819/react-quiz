@@ -118,6 +118,7 @@ progress {
 	display: block;
 	color: inherit;
 	font-size: 2rem;
+	font-family: 'Montserrat Alternates', sans-serif;
 	border: 2px solid var(--color-dark);
 	background-color: var(--color-dark);
 	padding: 1.2rem 2.4rem;

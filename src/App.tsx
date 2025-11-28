@@ -4,6 +4,7 @@ import Error from './components/Error';
 import Header from './components/Header';
 import Loader from './components/Loader';
 import Main from './components/Main';
+import NextButton from './components/NextButton'
 import Question from './components/Question';
 import StartScreen from './components/StartScreen';
 
@@ -19,24 +20,25 @@ interface State {
 	status: 'loading' | 'ready' | 'error' | 'active';
 	questions: Question[];
 	answer: number | null;
+	points: number;
 }
 
 export type Action =
-	| { type: 'LOADING' }
 	| { type: 'SET_QUESTIONS'; payload: Question[] }
+	| { type: 'NEW_ANSWER'; payload: number }
+	| { type: 'ADD_SCORE'; payload: number }
+	| { type: 'LOADING' }
 	| { type: 'ERROR' }
 	| { type: 'START' }
 	| { type: 'NEXT' }
-	| { type: 'PREV' }
-	| { type: 'NEW_ANSWER'; payload: number }
-	| { type: 'ADD_SCORE'; payload: number };
-	
-	
+	| { type: 'PREV' };
+
 const initialState: State = {
 	index: 0,
 	status: 'loading',
 	questions: [],
 	answer: null,
+	points: 0,
 };
 
 const reducer = (state: State, action: Action): State => {
@@ -58,9 +60,15 @@ const reducer = (state: State, action: Action): State => {
 			return { ...state, status: 'active' };
 
 		case 'NEW_ANSWER':
+			const question = state.questions.at(state.index);
+
 			return {
 				...state,
 				answer: action.payload,
+				points:
+					action.payload === question?.correctOption
+						? state.points + question.points
+						: state.points,
 			};
 
 		case 'ADD_SCORE':
@@ -120,7 +128,16 @@ export default function App() {
 				{status === 'ready' && (
 					<StartScreen numberOfQuestions={numberOfQuestions} dispatch={dispatch} />
 				)}
-				{status === 'active' && <Question dispatch={dispatch} question={questions[index]} answer={state.answer} />}
+				{status === 'active' && (
+					<>
+					<Question
+						dispatch={dispatch}
+						question={questions[index]}
+						answer={state.answer}
+					/>
+					<NextButton dispatch={dispatch} answer={state.answer} />
+					</>
+				)}
 			</Main>
 		</div>
 	);
