@@ -142,7 +142,7 @@ export default function App() {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const URL = 'data/questions.json';
+			const URL = '/data/questions.json';
 
 			try {
 				const response = await fetch(URL);
