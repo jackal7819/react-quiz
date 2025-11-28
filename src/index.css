@@ -252,9 +252,3 @@ progress {
 	font-size: inherit;
 	padding: 0.8rem;
 }
-
-.block {
-	width: 100px;
-	height: 52px;
-	background-color: transparent;
-}

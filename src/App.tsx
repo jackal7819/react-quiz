@@ -2,6 +2,7 @@ import { useEffect, useReducer } from 'react';
 
 import Error from './components/Error';
 import FinishScreen from './components/FinishScreen';
+import Footer from './components/Footer';
 import Header from './components/Header';
 import Loader from './components/Loader';
 import Main from './components/Main';
@@ -9,6 +10,7 @@ import NextButton from './components/NextButton';
 import Progress from './components/Progress';
 import Question from './components/Question';
 import StartScreen from './components/StartScreen';
+import Timer from './components/Timer';
 
 export interface Question {
 	question: string;
@@ -24,6 +26,7 @@ interface State {
 	answer: number | null;
 	points: number;
 	highScore: number;
+	secondsRemaining: number;
 }
 
 export type Action =
@@ -36,7 +39,8 @@ export type Action =
 	| { type: 'NEXT' }
 	| { type: 'PREV' }
 	| { type: 'FINISH' }
-	| { type: 'RESTART' };
+	| { type: 'RESTART' }
+	| { type: 'TICK' };
 
 const initialState: State = {
 	index: 0,
@@ -45,6 +49,7 @@ const initialState: State = {
 	answer: null,
 	points: 0,
 	highScore: 0,
+	secondsRemaining: 300,
 };
 
 const reducer = (state: State, action: Action): State => {
@@ -112,6 +117,15 @@ const reducer = (state: State, action: Action): State => {
 				index: 0,
 				answer: null,
 				points: 0,
+				secondsRemaining: 300,
+			};
+
+		case 'TICK':
+			return {
+				...state,
+				secondsRemaining: state.secondsRemaining - 1,
+				status: state.secondsRemaining === 0 ? 'finished' : state.status,
+				highScore: state.points > state.highScore ? state.points : state.highScore,
 			};
 
 		default:
@@ -121,19 +135,19 @@ const reducer = (state: State, action: Action): State => {
 
 export default function App() {
 	const [state, dispatch] = useReducer(reducer, initialState);
-	const { questions, status, index, answer, points, highScore } = state;
+	const { questions, status, index, answer, points, highScore, secondsRemaining } = state;
 
 	const numberOfQuestions = questions.length;
 	const maxPoints = questions.reduce((prev, curr) => prev + curr.points, 0);
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const URL = 'http://localhost:3001/questions';
+			const URL = 'data/questions.json';
 
 			try {
 				const response = await fetch(URL);
 				const data = await response.json();
-				dispatch({ type: 'SET_QUESTIONS', payload: data });
+				dispatch({ type: 'SET_QUESTIONS', payload: data.questions });
 			} catch (error) {
 				dispatch({ type: 'ERROR' });
 			}
@@ -161,12 +175,15 @@ export default function App() {
 							answer={answer}
 						/>
 						<Question dispatch={dispatch} question={questions[index]} answer={answer} />
-						<NextButton
-							dispatch={dispatch}
-							answer={answer}
-							index={index}
-							numberOfQuestions={numberOfQuestions}
-						/>
+						<Footer>
+							<Timer dispatch={dispatch} secondsRemaining={secondsRemaining} />
+							<NextButton
+								dispatch={dispatch}
+								answer={answer}
+								index={index}
+								numberOfQuestions={numberOfQuestions}
+							/>
+						</Footer>
 					</>
 				)}
 				{status === 'finished' && (
