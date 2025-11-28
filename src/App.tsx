@@ -15,9 +15,10 @@ export interface Question {
 }
 
 interface State {
-	questions: Question[];
-	status: 'loading' | 'ready' | 'error' | 'active';
 	index: number;
+	status: 'loading' | 'ready' | 'error' | 'active';
+	questions: Question[];
+	answer: number | null;
 }
 
 export type Action =
@@ -25,12 +26,17 @@ export type Action =
 	| { type: 'SET_QUESTIONS'; payload: Question[] }
 	| { type: 'ERROR' }
 	| { type: 'START' }
+	| { type: 'NEXT' }
+	| { type: 'PREV' }
+	| { type: 'NEW_ANSWER'; payload: number }
 	| { type: 'ADD_SCORE'; payload: number };
-
+	
+	
 const initialState: State = {
-	questions: [],
-	status: 'loading',
 	index: 0,
+	status: 'loading',
+	questions: [],
+	answer: null,
 };
 
 const reducer = (state: State, action: Action): State => {
@@ -50,6 +56,33 @@ const reducer = (state: State, action: Action): State => {
 
 		case 'START':
 			return { ...state, status: 'active' };
+
+		case 'NEW_ANSWER':
+			return {
+				...state,
+				answer: action.payload,
+			};
+
+		case 'ADD_SCORE':
+			return {
+				...state,
+				index: state.index + 1,
+				answer: action.payload,
+			};
+
+		case 'NEXT':
+			return {
+				...state,
+				index: state.index + 1,
+				answer: null,
+			};
+
+		case 'PREV':
+			return {
+				...state,
+				index: state.index - 1,
+				answer: null,
+			};
 
 		default:
 			return state;
@@ -87,7 +120,7 @@ export default function App() {
 				{status === 'ready' && (
 					<StartScreen numberOfQuestions={numberOfQuestions} dispatch={dispatch} />
 				)}
-				{status === 'active' && <Question question={questions[index]} />}
+				{status === 'active' && <Question dispatch={dispatch} question={questions[index]} answer={state.answer} />}
 			</Main>
 		</div>
 	);
