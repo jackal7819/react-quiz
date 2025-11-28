@@ -51,23 +51,16 @@ yarn build
 You can adapt the questions, add more features (timer, categories, score persistence, etc.), or reuse the core logic in your own projects.
 
 ## 🌟 Features
+
 • Display quiz questions one by one
+
 • Allow user to select answers
+
 • Show immediate feedback / correct answer after quiz
+
 • Display final score / result
+
 • Clean, responsive UI
-
-## ✅ Contributing
-
-If you want to contribute — feel free!
-
-Steps to contribute: 1. Fork this repo 2. Create a new branch: feature/your-feature 3. Make changes & commit 4. Submit a pull request — I will review and merge
-
-If you find bugs or have suggestions — you can open an issue.
-
-## 📝 License
-
-This project is released under the MIT License. See the LICENSE￼ file for details.
 
 ---
 
