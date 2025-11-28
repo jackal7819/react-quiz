@@ -1,73 +1,74 @@
-# React + TypeScript + Vite
+# React Quiz 🎯
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**React Quiz** — a simple quiz application built with React. It allows users to answer questions and get immediate feedback on their answers.
 
-Currently, two official plugins are available:
+## 🧩 What is this project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project is a basic quiz web-app. It demonstrates how to build interactive UI in React: rendering questions, handling user answers, tracking score, and showing results. It could be used as a learning project or as a foundation for a more complex quiz/training app.
 
-## React Compiler
+## 🚀 Why this project exists
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+-   To practice building a small but complete frontend project using React (with TypeScript).
+-   To explore component-based architecture, state and props management, and simple UI logic (question flow, user input, score calculation).
+-   To serve as a demo project that can be shared with others (recruiters, other devs), showing React skills and clean project setup.
 
-## Expanding the ESLint configuration
+## 📦 Tech Stack / Dependencies
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+-   **React** — UI library
+-   **TypeScript** — static typing (if used in your repo)
+-   **Vite** (or other bundler) — build tool & development server (if you use Vite)
+-   **CSS** — basic styling
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+> ⚠️ Adjust the list above depending on what you actually used: add libraries (e.g. state-management, UI, etc.) if applicable.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🔧 How to Install & Run
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# 1. Clone the repository
+git clone https://github.com/jackal7819/react-quiz.git
+cd react-quiz
+
+# 2. Install dependencies
+npm install
+# or
+yarn install
+
+# 3. Run in development mode
+npm start
+# or
+yarn start
+
+# 4. Build for production (if needed)
+npm run build
+# or
+yarn build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🖥️ Usage 
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. Open the app in your browser (http://localhost:3000 or port shown in console). 2. The quiz will start — user sees a question and multiple choices. 3. Select an answer and move to the next question. 4. At the end, get your result/score.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+You can adapt the questions, add more features (timer, categories, score persistence, etc.), or reuse the core logic in your own projects.
+
+## 🌟 Features
+• Display quiz questions one by one
+• Allow user to select answers
+• Show immediate feedback / correct answer after quiz
+• Display final score / result
+• Clean, responsive UI
+
+## ✅ Contributing
+
+If you want to contribute — feel free!
+
+Steps to contribute: 1. Fork this repo 2. Create a new branch: feature/your-feature 3. Make changes & commit 4. Submit a pull request — I will review and merge
+
+If you find bugs or have suggestions — you can open an issue.
+
+## 📝 License
+
+This project is released under the MIT License. See the LICENSE￼ file for details.
+
+---
+
+Made with 💙 by jackal7819
