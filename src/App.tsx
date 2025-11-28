@@ -35,7 +35,8 @@ export type Action =
 	| { type: 'START' }
 	| { type: 'NEXT' }
 	| { type: 'PREV' }
-	| { type: 'FINISH' };
+	| { type: 'FINISH' }
+	| { type: 'RESTART' };
 
 const initialState: State = {
 	index: 0,
@@ -104,6 +105,15 @@ const reducer = (state: State, action: Action): State => {
 				highScore: state.points > state.highScore ? state.points : state.highScore,
 			};
 
+		case 'RESTART':
+			return {
+				...state,
+				status: 'ready',
+				index: 0,
+				answer: null,
+				points: 0,
+			};
+
 		default:
 			return state;
 	}
@@ -160,7 +170,12 @@ export default function App() {
 					</>
 				)}
 				{status === 'finished' && (
-					<FinishScreen points={points} maxPoints={maxPoints} highScore={highScore} />
+					<FinishScreen
+						points={points}
+						maxPoints={maxPoints}
+						highScore={highScore}
+						dispatch={dispatch}
+					/>
 				)}
 			</Main>
 		</div>

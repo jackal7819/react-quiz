@@ -13,7 +13,7 @@ export default function NextButton({
 	index,
 	numberOfQuestions,
 }: NextButtonProps) {
-	if (answer === null) return null;
+	if (answer === null) return <div className='block'></div>;
 
 	if (index < numberOfQuestions - 1)
 		return (

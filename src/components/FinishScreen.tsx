@@ -1,10 +1,19 @@
+import RestartButton from './RestartButton';
+import type { Action } from '../App';
+
 interface FinishScreenProps {
 	points: number;
 	maxPoints: number;
 	highScore: number;
+	dispatch: React.Dispatch<Action>;
 }
 
-export default function FinishScreen({ points, maxPoints, highScore }: FinishScreenProps) {
+export default function FinishScreen({
+	points,
+	maxPoints,
+	highScore,
+	dispatch,
+}: FinishScreenProps) {
 	const percentage = Math.round((points / maxPoints) * 100);
 
 	let emoji = null;
@@ -22,6 +31,7 @@ export default function FinishScreen({ points, maxPoints, highScore }: FinishScr
 				{Math.round(percentage)}%)
 			</p>
 			<p className='high-score'>High score: {highScore} points</p>
+			<RestartButton dispatch={dispatch} />
 		</>
 	);
 }
