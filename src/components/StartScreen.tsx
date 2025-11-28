@@ -17,7 +17,7 @@ export default function StartScreen({ numberOfQuestions, dispatch }: StartScreen
 					dispatch({ type: 'START' });
 				}}
 			>
-				Let's start
+				LET'S START
 			</button>
 		</div>
 	);
